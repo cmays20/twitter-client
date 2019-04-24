@@ -8,8 +8,7 @@ ENV APP_JAR ${APP_JAR_NAME}.jar
 ADD target/*.jar ${APP_HOME}/${APP_JAR}
 ADD docker-entrypoint.sh /docker-entrypoint.sh
 
-RUN apk upgrade --update && apk add su-exec && \
-        sh -c 'touch ${APP_HOME}/${APP_JAR}' && \
+RUN sh -c 'touch ${APP_HOME}/${APP_JAR}' && \
         chmod a+x /docker-entrypoint.sh
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
