@@ -15,11 +15,12 @@ pipeline {
     stage('Build') {
       agent any
       steps {
+        sh 'mvn versions:set -DremoveSnapshot=true'
         script  {
-          VERSION = sh(script: 'mvn versions:set -DremoveSnapshot org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout --batch-mode',returnStdout: true)
+          VERSION = sh(script: 'mvn org.apache.maven.plugins:maven-help-plugin:3.1.0:evaluate -Dexpression=project.version -q -DforceStdout --batch-mode',returnStdout: true)
         }
         echo "${VERSION}"
-        sh 'mvn verify versions:set -DremoveSnapshot'
+        sh 'mvn verify'
       }
     }
 
