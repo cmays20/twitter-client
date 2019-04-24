@@ -12,7 +12,7 @@ if [ -n "$USER" ]; then
 fi
 
 if [ -z "$1" -o  "${1:0:1}" = '-' ]; then
-    CMD = java ${JAVA_OPTS} ${JMX_OPTS} -Djava.security.egd=file:/dev/./urandom -jar ${APP_HOME}/${APP_JAR}
+    CMD = "java ${JAVA_OPTS} ${JMX_OPTS} -Djava.security.egd=file:/dev/./urandom -jar ${APP_HOME}/${APP_JAR}"
     exec ${USER_OPTS1} ${CMD} ${USER_OPTS2} "$@"
 fi
 
