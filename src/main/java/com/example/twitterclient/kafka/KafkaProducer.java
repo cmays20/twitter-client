@@ -15,4 +15,8 @@ public class KafkaProducer {
         log.info("sending payload=" + payload);
         kafkaTemplate.send(topic, payload);
     }
+
+    public void send(String payload) {
+        this.send(kafkaTemplate.getDefaultTopic(), payload);
+    }
 }

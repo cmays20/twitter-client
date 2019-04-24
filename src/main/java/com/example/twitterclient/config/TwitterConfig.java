@@ -1,5 +1,6 @@
 package com.example.twitterclient.config;
 
+import com.example.twitterclient.kafka.KafkaProducer;
 import com.example.twitterclient.twitter.TwitterMessageProducer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -49,10 +50,10 @@ public class TwitterConfig {
     }
 
     @Bean
-    IntegrationFlow twitterFlow(MessageChannel outputChannel) {
+    IntegrationFlow twitterFlow(MessageChannel outputChannel, KafkaProducer kafkaProducer) {
         return IntegrationFlows.from(outputChannel)
                 .transform(Status::getText)
-                .handle(m -> log.info(m.getPayload().toString()))
+                .handle(m -> kafkaProducer.send(m.getPayload().toString()))
                 .get();
     }
 }
